@@ -12,7 +12,7 @@ before_script:
   - ./miniconda.sh -b -p /home/ci/mc
   - export PATH=/home/ci/mc/bin:$PATH
   - conda config --set always_yes True
-  - conda create -n testenv python=3.6 pytest coverage xlrd xlwt pymongo pandas -c conda-forge
+  - conda create -n testenv python=3.6 pytest coverage xlsxwriter pymongo pandas -c conda-forge
   - source activate testenv
   - pip install flake8 codecov
   - echo "mongo" > sampleDB.conf
