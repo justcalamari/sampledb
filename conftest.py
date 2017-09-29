@@ -1,18 +1,21 @@
 import pytest
+import os
 from datetime import datetime
 from sampledatabase import SampleDatabase
 
 
 @pytest.fixture(scope='function')
 def pdb():
-    db = SampleDatabase(db='test', collection='publishtests')
+    db = SampleDatabase(hostname=os.environ.get('Host'),
+                        db='test', collection='publishtests')
     yield db
     db.publisher.collection.remove()
 
 
 @pytest.fixture(scope='function')
 def sdb(entries):
-    db = SampleDatabase(db='test', collection='searchtests')
+    db = SampleDatabase(hostname=os.environ.get('Host'),
+                        db='test', collection='searchtests')
     db.searcher.collection.insert(entries)
     entries = [d.pop('_id', None) for d in entries]
     yield db

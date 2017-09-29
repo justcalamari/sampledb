@@ -14,8 +14,7 @@ before_script:
   - conda config --set always_yes True
   - conda create -n testenv python=3.6 pytest coverage xlrd xlsxwriter pymongo pandas -c conda-forge
   - source activate testenv
-  - pip install flake8 codecov
-  - echo "mongo" > sampleDB.conf
+  - pip install flake8
 
 test:
   tags:
@@ -27,4 +26,3 @@ test:
 
 after_script:
   - flake8 .
-  - codecov
