@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-import pytest
 from searchresult import SearchResult
 from pandas import read_excel, notnull
 from pandas import DataFrame as df
@@ -7,8 +6,9 @@ from pandas import DataFrame as df
 
 def test_filter(entries):
     sr = SearchResult(entries)
-    assert sr.filter([0,3]).results.equals(df([entries[i] for i in [0,3]]))
-    assert sr.filter([1,4]).results.equals(df([entries[1]]))
+    assert sr.filter([0, 3]).results.equals(df([entries[i]
+                                            for i in [0, 3]]))
+    assert sr.filter([1, 4]).results.equals(df([entries[1]]))
 
 
 def test_download(entries):

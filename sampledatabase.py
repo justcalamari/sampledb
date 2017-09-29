@@ -3,6 +3,7 @@ from databasesearcher import DatabaseSearcher
 from datapublisher import DataPublisher
 from pymongo import MongoClient
 
+
 class SampleDatabase(object):
 
     def __init__(self, hostname=None, db='sampleDB', collection='samples'):

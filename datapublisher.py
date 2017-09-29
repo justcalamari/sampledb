@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 import re
-import os
-import sys
 import pandas as pd
 from datetime import datetime
+
 
 class DataPublisher(object):
     """
@@ -15,7 +14,7 @@ class DataPublisher(object):
         Create a DataPublisher.
         """
         self.collection = collection
-        
+
     @classmethod
     def parse_sheet(cls, sheet):
         """
@@ -26,7 +25,7 @@ class DataPublisher(object):
         for key in sheet.columns:
             keys[key] = re.sub('[,\s]+', '_',
                                re.split('[\(\[]', key)[0].strip()).lower()
-    
+
         samples = []
         for row in sheet.iterrows():
             d = {}
@@ -37,10 +36,9 @@ class DataPublisher(object):
             if 'date' not in d:
                 d['date'] = datetime.now()
             samples.append(d)
-    
+
         return samples
-    
-    
+
     @classmethod
     def parse_wb(cls, wb):
         """
@@ -48,13 +46,12 @@ class DataPublisher(object):
         Returns a list of the dictionaries.
         """
         samples = []
-    
+
         for sheet in wb.sheet_names:
             samples.extend(cls.parse_sheet(wb.parse(sheet)))
-    
+
         return samples
-    
-    
+
     def publish(self, filename):
         """
         Publish a spreadsheet to the database.

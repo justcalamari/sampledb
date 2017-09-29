@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-import sys
 from datetime import datetime
 from searchresult import SearchResult
 
@@ -15,7 +14,6 @@ class DatabaseSearcher(object):
         """
         self.collection = collection
 
-
     @classmethod
     def parse_date(cls, date):
         """
@@ -24,8 +22,7 @@ class DatabaseSearcher(object):
         date = date.split('-')
         date = [int(i) for i in date]
         return datetime(date[0], date[1], date[2])
-    
-    
+
     @classmethod
     def date_range(cls, startdate=None, enddate=None):
         range_ = {}
@@ -35,13 +32,12 @@ class DatabaseSearcher(object):
         if enddate:
             end = cls.parse_date(enddate)
             range_['$lte'] = end
-    
+
         if range_:
             return {'date': range_}
         else:
             return {}
-    
-    
+
     def search(self, **kwargs):
         """
         Search the database for entries with the specified key, value pairs.
@@ -49,6 +45,6 @@ class DatabaseSearcher(object):
         """
         query = kwargs
         dr = self.date_range(query.pop('startdate', None),
-                        query.pop('enddate', None))
+                             query.pop('enddate', None))
         query.update(dr)
         return SearchResult(list(self.collection.find(query, {'_id': 0})))

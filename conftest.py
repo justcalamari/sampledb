@@ -2,6 +2,7 @@ import pytest
 from datetime import datetime
 from sampledatabase import SampleDatabase
 
+
 @pytest.fixture(scope='function')
 def pdb():
     db = SampleDatabase(db='test', collection='publishtests')
@@ -17,9 +18,10 @@ def sdb(entries):
     yield db
     db.searcher.collection.remove()
 
+
 @pytest.fixture(scope='function')
 def entries():
-    return [{'date': datetime(2017,1,1), 'sample_name': 'Ni'},
-            {'date': datetime(2017,1,1), 'sample_name': None},
-            {'date': datetime(2017,2,27), 'sample_name': 'Ni'},
-            {'date': datetime(2017,2,27), 'sample_name': None}]
+    return [{'date': datetime(2017, 1, 1), 'sample_name': 'Ni'},
+            {'date': datetime(2017, 1, 1), 'sample_name': None},
+            {'date': datetime(2017, 2, 27), 'sample_name': 'Ni'},
+            {'date': datetime(2017, 2, 27), 'sample_name': None}]
