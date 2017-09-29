@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-from databasesearcher import DatabaseSearcher
-from datapublisher import DataPublisher
+from sampledb.databasesearcher import DatabaseSearcher
+from sampledb.datapublisher import DataPublisher
 from pymongo import MongoClient
 
 

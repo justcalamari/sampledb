@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from searchresult import SearchResult
+from sampledb.searchresult import SearchResult
 
 
 def test_publish(pdb):

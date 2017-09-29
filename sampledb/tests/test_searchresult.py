@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from searchresult import SearchResult
+from sampledb.searchresult import SearchResult
 from pandas import read_excel, notnull
 from pandas import DataFrame as df
 

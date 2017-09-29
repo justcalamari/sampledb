@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 from datetime import datetime
-from searchresult import SearchResult
+from sampledb.searchresult import SearchResult
 
 
 class DatabaseSearcher(object):

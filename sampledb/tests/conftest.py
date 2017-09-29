@@ -1,7 +1,7 @@
 import pytest
 import os
 from datetime import datetime
-from sampledatabase import SampleDatabase
+from sampledb.sampledatabase import SampleDatabase
 
 
 @pytest.fixture(scope='function')
