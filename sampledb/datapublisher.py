@@ -16,6 +16,15 @@ class DataPublisher(object):
         self.collection = collection
 
     @classmethod
+    def get_SAF(cls, filename):
+        splt = filename.split('_')
+        if len(splt) != 2:
+            return None
+        if splt[1] != 'sample.xlsx':
+            return None
+        return splt[0]
+
+    @classmethod
     def parse_sheet(cls, sheet):
         """
         Converts each row in a sheet to a dictionary.
@@ -56,6 +65,8 @@ class DataPublisher(object):
         """
         Publish a spreadsheet to the database.
         """
+        saf = self.get_SAF(filename)
         wb = pd.ExcelFile(filename)
         for doc in self.parse_wb(wb):
+            doc['saf'] = saf
             self.collection.save(doc)
