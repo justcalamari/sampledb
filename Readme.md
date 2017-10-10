@@ -10,7 +10,7 @@
     
 - Now you can search and publish to the database using `sdb.search()` and `sdb.publish()`
 - Use `sdb.publish()` as follows:
-    - `sdb.publish('spreadsheet.xlsx')`
+    - `sdb.publish('<SAF_number>_sample.xlsx')`, for example, `sdb.publish('300874_sample.xlsx')`
     - This saves the samples in the spreadsheet to the database.
 - Use `sdb.search()` as follows:
     - `sdb.search(key1='val1', key2='val2', key3='val3', ...)`
