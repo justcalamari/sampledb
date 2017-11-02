@@ -1,6 +1,8 @@
 language: python
 sudo: false
 env:
+  global:
+    - secure: "KxLxbVhjY9WJX5t43yN6OHel6140Wb8ap6yy6Uieys0I4IPUulLIPAE/u7qeu3ObMLytZjASHFoNNFZ28u4O4oYf/IfAwSJdFr3v4fun1HTza4EZrXKBjbtRarzjWlfSRjwv8IbxLDi/aPX7vo2gkTyTrvu1LWWCfvhF2tbNTZVZxP3m7F778oW4EfsJCNnHvyscbsRW8Z+ApGjYjdJa97BUYS7nr3Ju5z0wkc3EmTbu6TDKZjeN5jOcidGulBJWx8UUWShyUwU+lrc2r4oQsca9VkBGaVls1Fc3l8ovrrU4Bd+/x7xYOPYmNhDQ3HPkUbD5PrMjrafKm4tDC+BJACP+WeMrr94BKSlNEdGHWeqgPwNkhWNvWmITowq79WEGcCRhwPV/yLXY2HxeOqrq7PiQ8SHCfUp3TyQ015IY7OAGPJ3wnkKkzxOwYgY7A9rEJGOA6Rwv2Jaae/rVoOKWv+5uIaB2zVeXdplaiL5sEe4rNbFDU5N2znQjhx1TmJqaGRcuSdvJVNUrS8MXPpkkmGgQpe9aTaAauTzHCodBWpuRrTIE5uIfOGBjzwN7WCSJtSXPZ32SM4R09Ar2ZD/0xdjUoCZH9JttTghbX8TF7/QG5GdhaMoqbnmFkVMhNPDg0WG2+YqHN4QFB4jEEZGHILx4Vclqb7X6QyAG289NUkU="
   matrix:
     - CUTTING_EDGE=true
 
@@ -42,10 +44,10 @@ script:
   - coverage report -m
   - codecov
   - flake8 sampledb
-#  - conda install --yes sphinx sphinx_rtd_theme
-#  - pip install git+git://github.com/drdoctr/doctr.git
-#  - cd docs
-#  - make html
-#  - cd ..
-#  - doctr deploy . --built-docs ./docs/_build/html;
+  - conda install --yes sphinx sphinx_rtd_theme
+  - pip install git+git://github.com/drdoctr/doctr.git
+  - cd docs
+  - make html
+  - cd ..
+  - doctr deploy . --built-docs ./docs/_build/html;
 
