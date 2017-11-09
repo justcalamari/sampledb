@@ -1,21 +1,32 @@
-\documentclass[letterpaper,11pt]{article}
+% !TeX program = pdflatex
+\documentclass[12pt]{article}
 \usepackage{graphicx}
-\usepackage{pgffor}
 \usepackage{caption}
-\usepackage{subcaption}
+\usepackage[newdimens]{labels}
+\captionsetup{aboveskip=-30pt}
+\LabelCols=\VAR{cols}
+\LabelRows=\VAR{rows}
+\LeftPageMargin=\VAR{lmar}
+\RightPageMargin=\VAR{rmar}
+\TopPageMargin=\VAR{tmar}
+\BottomPageMargin=\VAR{bmar}
+\InterLabelColumn=\VAR{intercol}
+\InterLabelRow=\VAR{interrow}
+\RightLabelBorder=\VAR{rbord}
+\LeftLabelBorder=\VAR{lbord}
+\TopLabelBorder=\VAR{tbord}
+\BottomLabelBorder=\VAR{bbord}
+\graphicspath{\VAR{gpath}}
 
-\graphicspath{%{{gpath}}%}
-
+%\LabelGridtrue
+\numberoflabels=\LabelCols
 \begin{document}
-%{ for qr in qrs }%
-    \begin{figure}
-        %{ for i in range(3) }%
-        \begin{subfigure}{.3\textwidth}
-            \includegraphics[width=1.\textwidth]{%{{qr['position']}}%}
-            \caption{%{{qr['uid'][:8]}}%}
-        \end{subfigure} %{ endfor }%
-    \end{figure}
+\begin{labels}
+\BLOCK{for qr, uid in qrs}
+    \centering
+        \includegraphics[width=\VAR{width}, height=\VAR{height}, keepaspectratio]{\VAR{qr}}\\
+    \captionof*{figure}{\VAR{uid}}
 
-%{ endfor }%
-
+\BLOCK{endfor}
+\end{labels}
 \end{document}
