@@ -1,0 +1,32 @@
+% !TeX program = pdflatex
+\documentclass[12pt]{article}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage[newdimens]{labels}
+\captionsetup{aboveskip=-30pt}
+\LabelCols=\VAR{cols}
+\LabelRows=\VAR{rows}
+\LeftPageMargin=\VAR{lmar}
+\RightPageMargin=\VAR{rmar}
+\TopPageMargin=\VAR{tmar}
+\BottomPageMargin=\VAR{bmar}
+\InterLabelColumn=\VAR{intercol}
+\InterLabelRow=\VAR{interrow}
+\RightLabelBorder=\VAR{rbord}
+\LeftLabelBorder=\VAR{lbord}
+\TopLabelBorder=\VAR{tbord}
+\BottomLabelBorder=\VAR{bbord}
+\graphicspath{\VAR{gpath}}
+
+%\LabelGridtrue
+\numberoflabels=\LabelCols
+\begin{document}
+\begin{labels}
+\BLOCK{for qr, uid in qrs}
+    \centering
+        \includegraphics[width=\VAR{width}, height=\VAR{height}, keepaspectratio]{\VAR{qr}}\\
+    \captionof*{figure}{\VAR{uid}}
+
+\BLOCK{endfor}
+\end{labels}
+\end{document}
