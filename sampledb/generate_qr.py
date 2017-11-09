@@ -2,7 +2,6 @@ from jinja2 import Environment, FileSystemLoader
 import os
 import qrcode
 import uuid
-import tempfile
 import subprocess
 from glob import glob
 import matplotlib.image
