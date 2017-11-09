@@ -21,24 +21,26 @@ env = Environment(loader=FileSystemLoader([
 
 template = env.get_template('qr_template.tex')
 
-u = str(uuid.uuid4())
-
-code = qrcode.make(u)
-
 base = 'test'
 
-fn = os.path.join(base, u + '.eps')
-
-code = np.array(code)
-
-matplotlib.image.imsave(fn, code, format='eps', cmap='gray')
-
-ctx = {'qrs': [{'position': u + '.eps', 'uid': u}],
+ctx = {'qrs': [],
        'gpath': base}
+
+for i in range(5):
+    u = str(uuid.uuid4())
+
+    code = qrcode.make(u)
+
+    fn = os.path.join(base, u + '.eps')
+
+    code = np.array(code)
+
+    matplotlib.image.imsave(fn, code, format='eps', cmap='gray')
+    d = {'position': u + '.eps', 'uid': u}
+    ctx['qrs'].append(d)
 
 result = template.render(ctx)
 print(result)
-
 
 os.makedirs(base, exist_ok=True)
 
@@ -66,5 +68,6 @@ def clean():
         to_rm += glob(os.path.join(base, pst))
     for f in set(to_rm):
         os.remove(f)
+
 
 clean()

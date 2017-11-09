@@ -12,8 +12,10 @@
         %{ for i in range(3) }%
         \begin{subfigure}{.3\textwidth}
             \includegraphics[width=1.\textwidth]{%{{qr['position']}}%}
-            \caption{%{{qr['uid']}}%}
+            \caption{%{{qr['uid'][:8]}}%}
         \end{subfigure} %{ endfor }%
     \end{figure}
+
 %{ endfor }%
+
 \end{document}
