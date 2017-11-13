@@ -1,0 +1,26 @@
+{"uid": {
+    "type" : ["number", "string"],
+    "required" : true,
+    "description" : ""
+ },
+ "sample_name": {
+    "type" : "string",
+    "required" : true,
+    "description" : ""
+ },
+ "phase_info": {
+    "type" : ["string", "array"],
+    "required" : true,
+    "description" : ""
+ },
+ "sample-name_of_sample_background": {
+    "type" : "string",
+    "required" : true,
+    "description" : ""
+ },
+ "sample_maker": {
+    "type" : "string",
+    "required" : true,
+    "description" : ""
+ }
+}
