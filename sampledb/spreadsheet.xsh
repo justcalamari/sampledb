@@ -3,9 +3,6 @@ import pandas as pd
 
 schema = json.load(open('sample_schema.json'))
 
-#df = DataFrame(schema)
-#df.to_excel('test.xlsx')
-
 fields = []
 for name in schema:
     f = name.replace('_', ' ').title()
