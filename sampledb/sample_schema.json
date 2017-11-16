@@ -1,26 +1,15 @@
-{"uid": {
-    "type" : ["number", "string"],
-    "required" : true,
-    "description" : ""
- },
- "sample_name": {
-    "type" : "string",
-    "required" : true,
-    "description" : ""
- },
- "phase_info": {
-    "type" : ["string", "array"],
-    "required" : true,
-    "description" : ""
- },
- "sample-name_of_sample_background": {
-    "type" : "string",
-    "required" : true,
-    "description" : ""
- },
- "sample_maker": {
-    "type" : "string",
-    "required" : true,
-    "description" : ""
- }
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "title": "Sample",
+    "type": "object",
+    "required": ["uid", "sample_name", "phase_info",
+        "sample-name_of_sample_background", "sample_maker"],
+    "properties": {
+        "uid": {"type" : ["number", "string"]},
+        "sample_name": {"type" : "string"},
+        "phase_info": {"type" : ["string", "array"]},
+        "sample-name_of_sample_background": {"type" : "string",
+            "default" : "air"},
+        "sample_maker": {"type" : "string"}
+    }
 }
