@@ -1,5 +1,6 @@
 import json
 import pandas as pd
+from time import time
 
 def write_sample_spreadsheet(uids):
     schema = json.load(open('sample_schema.json'))
@@ -16,7 +17,8 @@ def write_sample_spreadsheet(uids):
     cols.insert(0, cols.pop(cols.index('Uid')))
     df = df[cols]
     
-    writer = pd.ExcelWriter('test.xlsx', engine='xlsxwriter')
+    filename = str(int(time())) + '.xlsx'
+    writer = pd.ExcelWriter(filename, engine='xlsxwriter')
     df.to_excel(writer, index=False)
     sheet = writer.sheets['Sheet1']
     for i, name in enumerate(df):
@@ -25,5 +27,5 @@ def write_sample_spreadsheet(uids):
         sheet.set_column(i, i, width)
     writer.save()
     
-    soffice 'test.xlsx'
-    rm 'test.xlsx'
+    soffice @(filename)
+    rm @(filename)
