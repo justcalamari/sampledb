@@ -5,7 +5,7 @@ def write_sample_spreadsheet(uids):
     schema = json.load(open('sample_schema.json'))
 
     fields = []
-    for name in schema:
+    for name in schema['properties']:
         f = name.replace('_', ' ').title()
         fields.append(f)
     fields = {k:[None]*len(uids) for k in fields}
