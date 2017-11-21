@@ -41,7 +41,8 @@ class DataPublisher(object):
             if re.match('[^\w\d]', row[1][0]):
                 continue
             for oldkey, newkey in keys.items():
-                d[newkey] = row[1][oldkey]
+                if row[1][oldkey] == row[1][oldkey]:
+                    d[newkey] = row[1][oldkey]
             if 'date' not in d:
                 d['date'] = datetime.now()
             samples.append(d)
