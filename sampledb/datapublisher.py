@@ -2,6 +2,7 @@
 import re
 import pandas as pd
 from datetime import datetime
+from jsonschema import validate, ValidationError
 
 
 class DataPublisher(object):
@@ -9,11 +10,12 @@ class DataPublisher(object):
     Publish data to a database.
     """
 
-    def __init__(self, collection):
+    def __init__(self, collection, schema={}):
         """
         Create a DataPublisher.
         """
         self.collection = collection
+        self.schema = schema
 
     @classmethod
     def get_SAF(cls, filename):
@@ -62,6 +64,9 @@ class DataPublisher(object):
 
         return samples
 
+    def get_schema(self):
+        return self.schema
+
     def publish(self, filename):
         """
         Publish a spreadsheet to the database.
@@ -69,5 +74,10 @@ class DataPublisher(object):
         saf = self.get_SAF(filename)
         wb = pd.ExcelFile(filename)
         for doc in self.parse_wb(wb):
-            doc['saf'] = saf
-            self.collection.save(doc)
+            if saf:
+                doc['saf'] = saf
+            try:
+                validate(doc, self.schema)
+                self.collection.save(doc)
+            except ValidationError:
+                print('Failed validating uid={}'.format(doc.get('uid')))
