@@ -1,9 +1,11 @@
-import json
 import pandas as pd
 from time import time
+from sampledb.sampledatabase import SampleDatabase
 
 def write_sample_spreadsheet(uids):
-    schema = json.load(open('sample_schema.json'))
+    sdb = SampleDatabase(collection='test')
+    sdb.load_schema('sample_schema.json')
+    schema = sdb.get_schema()
 
     fields = []
     for name in schema['properties']:
@@ -28,4 +30,5 @@ def write_sample_spreadsheet(uids):
     writer.save()
     
     soffice @(filename)
+    sdb.publish(filename)
     rm @(filename)
