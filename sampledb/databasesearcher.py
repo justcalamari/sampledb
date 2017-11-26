@@ -44,6 +44,8 @@ class DatabaseSearcher(object):
         Returns a cursor with the results.
         """
         query = kwargs
+        if 'uid' in kwargs and type(kwargs['uid']) == type([]):
+            query['uid'] = {'$in': kwargs['uid']}
         dr = self.date_range(query.pop('startdate', None),
                              query.pop('enddate', None))
         query.update(dr)
