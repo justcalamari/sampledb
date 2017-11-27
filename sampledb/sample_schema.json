@@ -10,6 +10,11 @@
         "phase_info": {"type" : ["string", "array"]},
         "sample-name_of_sample_background": {"type" : "string",
             "default" : "air"},
-        "sample_maker": {"type" : "string"}
+        "sample_maker": {"type" : "string"},
+        "quantity": {"type" : "number"},
+        "disposition": {"type": "string"},
+        "transport": {"type": "string"},
+        "properties": {"type": "string"},
+        "task_and_hazard_analysis": {"type": "string"}
     }
 }
