@@ -14,7 +14,8 @@ class SampleDatabase(object):
         self.publisher = DataPublisher(collection)
 
     def load_schema(self, schema_file):
-        schema = json.load(open(schema_file))
+        with open(schema_file) as sch:
+            schema = json.load(sch)
         self.publisher.schema = schema
 
     def get_schema(self):
