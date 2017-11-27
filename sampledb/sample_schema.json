@@ -11,10 +11,11 @@
         "sample-name_of_sample_background": {"type" : "string",
             "default" : "air"},
         "sample_maker": {"type" : "string"},
-        "quantity": {"type" : "number"},
+        "quantity": {"type" : "string"},
         "disposition": {"type": "string"},
         "transport": {"type": "string"},
         "properties": {"type": "string"},
-        "task_and_hazard_analysis": {"type": "string"}
+        "task_and_hazard_analysis": {"type": "string"}},
+   "order": ["uid", "sample_name", "phase_info", "sample-name_of_sample_background", "sample_maker", "quantity", "disposition", "transport", "properties", "task_and_hazard_analysis"]
     }
-}
+
