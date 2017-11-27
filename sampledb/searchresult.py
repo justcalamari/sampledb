@@ -33,6 +33,12 @@ class SearchResult(object):
     def __ne__(self, other):
         return not self.__eq__(other)
 
+    def count(self):
+        """
+        Returns the number of samples that match the search.
+        """
+        return len(self.results)
+
     def filter(self, indices):
         """
         Filter the search results.

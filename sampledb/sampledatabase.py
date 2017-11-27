@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import json
 from sampledb.databasesearcher import DatabaseSearcher
 from sampledb.datapublisher import DataPublisher
 from pymongo import MongoClient
@@ -11,6 +12,14 @@ class SampleDatabase(object):
         collection = c[db][collection]
         self.searcher = DatabaseSearcher(collection)
         self.publisher = DataPublisher(collection)
+
+    def load_schema(self, schema_file):
+        with open(schema_file) as sch:
+            schema = json.load(sch)
+        self.publisher.schema = schema
+
+    def get_schema(self):
+        return self.publisher.get_schema()
 
     def search(self, **kwargs):
         return self.searcher.search(**kwargs)
