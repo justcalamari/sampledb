@@ -79,5 +79,7 @@ class DataPublisher(object):
             try:
                 validate(doc, self.schema)
                 self.collection.save(doc)
-            except ValidationError:
+            except ValidationError as e:
                 print('Failed validating uid={}'.format(doc.get('uid')))
+                print(e)
+
