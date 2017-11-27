@@ -82,4 +82,3 @@ class DataPublisher(object):
             except ValidationError as e:
                 print('Failed validating uid={}'.format(doc.get('uid')))
                 raise e
-
