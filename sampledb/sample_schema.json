@@ -3,7 +3,7 @@
     "title": "Sample",
     "type": "object",
     "required": ["uid", "sample_name", "phase_info",
-        "sample-name_of_sample_background", "sample_maker"],
+        "sample-name_of_sample_background", "sample_maker", "project"],
     "properties": {
         "uid": {"type" : ["number", "string"]},
         "sample_name": {"type" : "string"},
