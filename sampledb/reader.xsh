@@ -1,13 +1,16 @@
 import pandas as pd
 from time import time
 from sampledb.sampledatabase import SampleDatabase
+from collections import OrderedDict
 
 
 def get_uid_from_qr():
     a = $(zbarcam)
     b = a.split()
     c = [z.strip('QR-Code:') for z in b]
-    d = set(c)
+    d = OrderedDict({})
+    for z in c:
+        d.update({z: None})
     return d
 
 def write_sample_spreadsheet(uids, sdb):
