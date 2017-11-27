@@ -81,5 +81,5 @@ class DataPublisher(object):
                 self.collection.save(doc)
             except ValidationError as e:
                 print('Failed validating uid={}'.format(doc.get('uid')))
-                print(e)
+                raise e
 

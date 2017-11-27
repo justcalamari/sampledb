@@ -4,6 +4,9 @@ from sampledb.sampledatabase import SampleDatabase
 from collections import OrderedDict
 
 
+def sanitize_df(name):
+    return name.replace('_', ' ').title()
+
 def get_uid_from_qr():
     a = $(zbarcam)
     b = a.split()
@@ -30,8 +33,7 @@ def write_sample_spreadsheet(uids, sdb):
     fields['Uid'] = list(uids)
     df = pd.DataFrame.from_records(fields)
     # Move uid to first column
-    cols = df.columns.tolist()
-    cols.insert(0, cols.pop(cols.index('Uid')))
+    cols = [sanitize_df(n) for n in schema['order']]
     df = df[cols]
 
     filename = str(int(time())) + '.xlsx'
