@@ -95,4 +95,4 @@ def clean():
         os.remove(f)
 
 
-# clean()
+clean()
