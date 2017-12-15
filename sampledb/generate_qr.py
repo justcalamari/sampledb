@@ -32,14 +32,14 @@ lmar = 0.1875
 rmar = 0.1875
 tmar = 0.5
 bmar = 0.5
-intercol = 0.125
+intercol = 0.6
 interrow = 0
 rbord = 0.0625
 lbord = 0.0625
 tbord = 0.125
 bbord = 0.125
 width = (8.5 - lmar - rmar - (cols - 1) * intercol) / cols - lbord - rbord
-height = (11 - tmar - bmar - (rows - 1) * interrow) / rows - tbord - bbord
+height = .8 * (11 - tmar - bmar - (rows - 1) * interrow) / rows - tbord - bbord
 
 options = {
     'lmar': lmar,

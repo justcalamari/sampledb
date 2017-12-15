@@ -19,13 +19,12 @@
 \graphicspath{\VAR{gpath}}
 
 %\LabelGridtrue
-\numberoflabels=\LabelCols
+\numberoflabels=1
 \begin{document}
 \begin{labels}
 \BLOCK{for qr, uid in qrs}
-    \centering
-        \includegraphics[width=\VAR{width}, height=\VAR{height}, keepaspectratio]{\VAR{qr}}\\
-    \captionof*{figure}{\VAR{uid}}
+    \hfill\includegraphics[width=\VAR{width}, height=\VAR{height}, keepaspectratio]{\VAR{qr}}\hfill\includegraphics[width=\VAR{width}, height=\VAR{height}, keepaspectratio]{\VAR{qr}}\hfill\includegraphics[width=\VAR{width}, height=\VAR{height}, keepaspectratio]{\VAR{qr}}\hfill\\
+    \captionof*{figure}{\hfill \VAR{uid} \hfill \VAR{uid} \hfill \VAR{uid} \hfill}
 
 \BLOCK{endfor}
 \end{labels}
