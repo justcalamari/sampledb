@@ -21,7 +21,6 @@ addons:
     - mongodb-org-server
 
 python:
-  - 3.5
   - 3.6
 before_install:
   - "export DISPLAY=:99.0"
@@ -29,23 +28,26 @@ before_install:
   - chmod +x miniconda.sh
   - ./miniconda.sh -b -p ~/mc
   - export PATH=~/mc/bin:$PATH
+  - conda config --set always_yes yes --set changeps1 no
+  - conda config --add channels conda-forge
   - conda update conda --yes
   - export CONDARC=ci/condarc
 
 
 install:
   - export GIT_FULL_HASH=`git rev-parse HEAD`
-  - conda create --yes -n testenv python=3.6 pytest codecov coverage xlrd xlsxwriter pymongo flake8 pandas jsonschema -c conda-forge
+  - conda create --yes -n testenv --file requirements/run.txt
   - source activate testenv
+  - python setup.py install
 
 script:
   - set -e
+  - conda install --file requirements/test.txt
   - coverage run run_tests.py
   - coverage report -m
   - codecov
   - flake8 sampledb
-  - conda install --yes sphinx sphinx_rtd_theme
-  - pip install git+git://github.com/drdoctr/doctr.git
+  - conda install --yes --file requirements/doc.txt
   - cd docs
   - make html
   - cd ..

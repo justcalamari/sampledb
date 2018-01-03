@@ -1,0 +1,7 @@
+python >=3.6
+xlrd
+xlsxwriter
+pymongo
+pandas
+jsonschema
+xonsh
