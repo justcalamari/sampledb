@@ -40,7 +40,7 @@ install:
 
 script:
   - set -e
-  - conda install --file requirements/test.txt
+  - conda install --file requirements/test.txt -c conda-forge
   - coverage run run_tests.py
   - coverage report -m
   - codecov
