@@ -34,17 +34,18 @@ before_install:
 
 install:
   - export GIT_FULL_HASH=`git rev-parse HEAD`
-  - conda create --yes -n testenv --file requirements/test.txt -c conda-forge
+  - conda create --yes -n testenv --file requirements/run.txt -c conda-forge
   - source activate testenv
+  - python setup.py install
 
 script:
   - set -e
+  - conda install --file requirements/test.txt
   - coverage run run_tests.py
   - coverage report -m
   - codecov
   - flake8 sampledb
   - conda install --yes --file requirements/doc.txt -c conda-forge
-  - pip install git+git://github.com/drdoctr/doctr.git
   - cd docs
   - make html
   - cd ..
