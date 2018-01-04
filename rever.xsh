@@ -1,5 +1,5 @@
 $PROJECT = 'sampledb'
-$ACTIVITIES = ['version_bump', 'changelog', 'tag',
+$ACTIVITIES = ['version_bump', 'changelog', 'tag', 'push_tag', 
         #'conda_forge',
         'ghrelease']
 
