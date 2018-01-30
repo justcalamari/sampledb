@@ -10,8 +10,13 @@ class SearchResult(object):
     """
 
     def __init__(self, results):
-        """
-        Create a SearchResult.
+        """Create a SearchResult.
+
+        Parameters
+        ----------
+        
+        Returns
+        -------
         """
         self.results = pd.DataFrame(results)
         if self.results.size == 0:
@@ -34,22 +39,40 @@ class SearchResult(object):
         return not self.__eq__(other)
 
     def count(self):
-        """
-        Returns the number of samples that match the search.
+        """Get the number of samples that match the search.
+        
+        Parameters
+        ----------
+
+        Returns
+        -------
+        int
+            The number of samples that match the search.
         """
         return len(self.results)
 
     def filter(self, indices):
-        """
-        Filter the search results.
-        Returns new SearchResult with only the filtered results.
+        """Filter the search results.
+
+        Parameters
+        ----------
+
+        Returns
+        -------
+        SearchResult
+            A new SearchResult object with only the filtered results.
         """
         df = self.results.filter(items=indices, axis=0)
         return SearchResult(df.reset_index(drop=True))
 
     def download(self, filename):
-        """
-        Download the search results as a spreadsheet.
+        """Download the search results as a spreadsheet.
+        
+        Parameters
+        ----------
+
+        Returns
+        -------
         """
         frames = []
         for name in self.results:

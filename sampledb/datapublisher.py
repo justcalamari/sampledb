@@ -7,18 +7,42 @@ from jsonschema import validate, ValidationError
 
 class DataPublisher(object):
     """
-    Publish data to a database.
+    Publish data from a spreadsheet to a MongoDB database.
     """
 
     def __init__(self, collection, schema={}):
-        """
-        Create a DataPublisher.
+        """Create a DataPublisher.
+
+        Parameters
+        ----------
+        collection : pymongo.collection.Collection
+            The MongoDB collection to which data is published.
+        schema : dict, optional
+            A json schema against which data is validated. Defaults to an empty dict, which accepts all data.
+
+        Returns
+        -------
+        DataPublisher
+            A DataPublisher object that publishes to the input MongoDB collection.
         """
         self.collection = collection
         self.schema = schema
 
     @classmethod
     def get_SAF(cls, filename):
+        """Get the SAF number of the samples in the spreadsheet if it is in the filename.
+
+        Parameters
+        ----------
+        filename : str
+            The name of the spreadsheet containing the data to be published.
+
+        Returns
+        -------
+        str
+            The SAF number of the data in the spreadsheet, or None if it cannot be found.
+        """
+
         splt = filename.split('_')
         if len(splt) != 2:
             return None
@@ -28,9 +52,16 @@ class DataPublisher(object):
 
     @classmethod
     def parse_sheet(cls, sheet):
-        """
-        Converts each row in a sheet to a dictionary.
-        Returns a list of the dictionaries.
+        """Converts each row in a single sheet of a workbook to a dictionary.
+
+        Parameters
+        ----------
+        sheet : pandas.core.frame.DataFrame
+
+        Returns
+        -------
+        list of dict
+            A list of dictionaries of data for each sample in the sheet.
         """
         keys = {}
         for key in sheet.columns:
@@ -53,9 +84,17 @@ class DataPublisher(object):
 
     @classmethod
     def parse_wb(cls, wb):
-        """
-        Converts each row in all sheets of a workbook to a dictionary.
+        """Converts each row in all sheets of a workbook to a dictionary.
         Returns a list of the dictionaries.
+
+        Parameters
+        ----------
+        wb : pandas.io.excel.ExcelFile
+
+        Returns
+        -------
+        list of dict
+            A list of dictionaries of data for each sample in a workbook.
         """
         samples = []
 
@@ -65,11 +104,22 @@ class DataPublisher(object):
         return samples
 
     def get_schema(self):
+        """Return the schema against which this DataPublisher validates.
+
+        Returns
+        -------
+        dict
+            The json schema against which this DataPublisher validates.
+        """
         return self.schema
 
     def publish(self, filename):
-        """
-        Publish a spreadsheet to the database.
+        """Publish a spreadsheet to the database.
+
+        Parameters
+        ----------
+        filename : str
+            The name of the spreadsheet containing the data to be published.
         """
         saf = self.get_SAF(filename)
         wb = pd.ExcelFile(filename)
