@@ -7,15 +7,25 @@ from pymongo import MongoClient
 
 class SampleDatabase(object):
     """
+    Search and publish data to a MongoDB database.
     """
 
     def __init__(self, hostname=None, db='sampleDB', collection='samples'):
-        """
+        """Create a SampleDatabase.
+
         Parameters
         ----------
+        hostname : str, optional
+            The hostname of IP address of the server hosting the database. Defaults to None, which is equivalent to localhost.
+        db : str, optional
+            The name of the MongoDB database. Defaults to 'sampleDB'.
+        collection : str, optional
+            The name of the MongoDB collection. Defaults to 'samples'.
 
         Returns
         -------
+        SampleDatabase
+            A SampleDatabase object for the specified MongoDB collection.
         """
         c = MongoClient(hostname)
         collection = c[db][collection]
@@ -23,12 +33,17 @@ class SampleDatabase(object):
         self.publisher = DataPublisher(collection)
 
     def load_schema(self, schema_file):
-        """
+        """Loads a json schema from a specified file as a dict.
+
         Parameters
         ----------
+        schema_file : str
+            The name of the json schema file.
 
         Returns
         -------
+        dict
+            The json schema as a dict.
         """
         with open(schema_file) as sch:
             schema = json.load(sch)

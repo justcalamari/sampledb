@@ -6,7 +6,7 @@ from functools import reduce
 
 class SearchResult(object):
     """
-    An object containing the matching results of a search on the database.
+    An object containing the results of a search on the database.
     """
 
     def __init__(self, results):
@@ -14,9 +14,12 @@ class SearchResult(object):
 
         Parameters
         ----------
+        results : list of dict or pandas.DataFrame
         
         Returns
         -------
+        SearchResult
+            A SearchResult object for the input results.
         """
         self.results = pd.DataFrame(results)
         if self.results.size == 0:
@@ -41,9 +44,6 @@ class SearchResult(object):
     def count(self):
         """Get the number of samples that match the search.
         
-        Parameters
-        ----------
-
         Returns
         -------
         int
@@ -56,6 +56,8 @@ class SearchResult(object):
 
         Parameters
         ----------
+        indices : list of int
+            A list of indices of the entries to keep.
 
         Returns
         -------
@@ -70,9 +72,8 @@ class SearchResult(object):
         
         Parameters
         ----------
-
-        Returns
-        -------
+        filename : str
+            The name of the spreadsheet to write the results to.
         """
         frames = []
         for name in self.results:
