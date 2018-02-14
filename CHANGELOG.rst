@@ -4,6 +4,16 @@ Sampledb Change Log
 
 .. current developments
 
+v0.1.4
+====================
+
+**Changed:**
+
+* No changes, just testing conda-forge auto-ticker.
+
+
+
+
 v0.1.3
 ====================
 
