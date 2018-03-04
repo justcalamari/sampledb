@@ -1,3 +1,4 @@
+import json
 import pandas as pd
 from time import time
 from sampledb.sampledatabase import SampleDatabase
@@ -97,7 +98,9 @@ def download_sample_spreadsheet(filename, host=None, db='sampleDB', collection='
             print('The following sample uids are not in the database:')
             for uid in unknown:
                 print(uid)
-        sdb.search(uid=list(uids)).download(filename)
+        with open('sample_schema.json') as sch:
+            schema = json.load(sch)
+        sdb.search(uid=list(uids)).download(filename, schema)
     except Exception as e:
         print(e)
     finally:
