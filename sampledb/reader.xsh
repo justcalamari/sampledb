@@ -68,15 +68,19 @@ def upload_samples(host=None, db='sampleDB', collection='samples', key=None, use
         sdb = SampleDatabase('localhost:' + str(port), db, collection)
     else:
         sdb = SampleDatabase(host, db, collection)
-    uids = get_uid_from_qr()
-    known, unknown = find_uids(uids, sdb)
-    if len(known):
-        print('The following sample uids were found in the database:')
-    for uid in known:
-        print(uid)
-    write_sample_spreadsheet(unknown, sdb)
-    if key:
-        ssh -S sock -O exit @(server)
+    try:
+        uids = get_uid_from_qr()
+        known, unknown = find_uids(uids, sdb)
+        if len(known):
+            print('The following sample uids were found in the database:')
+        for uid in known:
+            print(uid)
+        write_sample_spreadsheet(unknown, sdb)
+    except Exception as e:
+        print(e)
+    finally:
+        if key:
+            ssh -S sock -O exit @(server)
 
 def download_sample_spreadsheet(filename, host=None, db='sampleDB', collection='samples', key=None, user=None, port=8000):
     if key:
@@ -86,12 +90,16 @@ def download_sample_spreadsheet(filename, host=None, db='sampleDB', collection='
         sdb = SampleDatabase('localhost:' + str(port), db, collection)
     else:
         sdb = SampleDatabase(host, db, collection)
-    uids = get_uid_from_qr()
-    _, unknown = find_uids(uids, sdb)
-    if len(unknown):
-        print('The following sample uids are not in the database:')
-        for uid in unknown:
-            print(uid)
-    sdb.search(uid=list(uids)).download(filename)
-    if key:
-        ssh -S sock -O exit @(server)
+    try:
+        uids = get_uid_from_qr()
+        _, unknown = find_uids(uids, sdb)
+        if len(unknown):
+            print('The following sample uids are not in the database:')
+            for uid in unknown:
+                print(uid)
+        sdb.search(uid=list(uids)).download(filename)
+    except Exception as e:
+        print(e)
+    finally:
+        if key:
+            ssh -S sock -O exit @(server)
