@@ -51,6 +51,9 @@ class SearchResult(object):
         """
         Download the search results as a spreadsheet.
         """
+        if len(self.results) == 0:
+            print('You cannot download an empty spreadsheet.')
+            return
         frames = []
         for name in self.results:
             f = self.results[name].rename(name.replace('_', ' ').title())
