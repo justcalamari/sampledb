@@ -2,6 +2,7 @@
 from sampledb.searchresult import SearchResult
 from pandas import read_excel, notnull
 from pandas import DataFrame as df
+from pytest import fail
 
 
 def test_filter(entries):
@@ -18,8 +19,14 @@ def test_download(entries):
     wb = wb.where(notnull(wb), None)
     wb.rename(columns={c: c.replace(' ', '_').lower() for c in wb.columns},
               inplace=True)
-
     assert wb.equals(df(entries))
+
+    sr = SearchResult([])
+    try:
+        sr.download('test.xlsx')
+    except Exception:
+        fail('Trying to download an empty spreadsheet should not raise '
+             'an exception.')
 
 
 def test_eq(entries):
