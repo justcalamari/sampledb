@@ -47,16 +47,26 @@ class SearchResult(object):
         df = self.results.filter(items=indices, axis=0)
         return SearchResult(df.reset_index(drop=True))
 
-    def download(self, filename):
+    def download(self, filename, schema={}):
         """
         Download the search results as a spreadsheet.
         """
+        if len(self.results) == 0:
+            print('You cannot download an empty spreadsheet.')
+            return
         frames = []
         for name in self.results:
             f = self.results[name].rename(name.replace('_', ' ').title())
             f = f.to_frame()
             frames.append(f)
         df = reduce(lambda x, y: x.join(y), frames)
+
+        cols = df.columns.tolist()
+        order = schema.get('order', [])
+        order = [o.replace('_', ' ').title() for o in order]
+        order = [o for o in order if o in cols]
+        order = order + [c for c in cols if c not in order]
+        df = df[order]
 
         writer = pd.ExcelWriter(filename, engine='xlsxwriter')
         df.to_excel(writer, index=False)

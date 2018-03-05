@@ -1,3 +1,4 @@
+import json
 import pandas as pd
 from time import time
 from sampledb.sampledatabase import SampleDatabase
@@ -61,37 +62,23 @@ def find_uids(uids, sdb):
     return known, unknown
 
 def upload_samples(host=None, db='sampleDB', collection='samples', key=None, user=None, port=8000):
-    if key:
-        server = user + '@' + host
-        tunnel = str(port) + ':localhost:27017'
-        ssh -i @(key) -fNMS sock -L @(tunnel) @(server)
-        sdb = SampleDatabase('localhost:' + str(port), db, collection)
-    else:
-        sdb = SampleDatabase(host, db, collection)
-    uids = get_uid_from_qr()
-    known, unknown = find_uids(uids, sdb)
-    if len(known):
-        print('The following sample uids were found in the database:')
-    for uid in known:
-        print(uid)
-    write_sample_spreadsheet(unknown, sdb)
-    if key:
-        ssh -S sock -O exit @(server)
+    with SampleDatabase(host, db, collection, key, user, port) as sdb:
+        uids = get_uid_from_qr()
+        known, unknown = find_uids(uids, sdb)
+        if len(known):
+            print('The following sample uids were found in the database:')
+        for uid in known:
+            print(uid)
+        write_sample_spreadsheet(unknown, sdb)
 
 def download_sample_spreadsheet(filename, host=None, db='sampleDB', collection='samples', key=None, user=None, port=8000):
-    if key:
-        server = user + '@' + host
-        tunnel = str(port) + ':localhost:27017'
-        ssh -i @(key) -fNMS sock -L @(tunnel) @(server)
-        sdb = SampleDatabase('localhost:' + str(port), db, collection)
-    else:
-        sdb = SampleDatabase(host, db, collection)
-    uids = get_uid_from_qr()
-    _, unknown = find_uids(uids, sdb)
-    if len(unknown):
-        print('The following sample uids are not in the database:')
-        for uid in unknown:
-            print(uid)
-    sdb.search(uid=list(uids)).download(filename)
-    if key:
-        ssh -S sock -O exit @(server)
+    with SampleDatabase(host, db, collection, key, user, port) as sdb:
+        uids = get_uid_from_qr()
+        _, unknown = find_uids(uids, sdb)
+        if len(unknown):
+            print('The following sample uids are not in the database:')
+            for uid in unknown:
+                print(uid)
+        with open('sample_schema.json') as sch:
+            schema = json.load(sch)
+        sdb.search(uid=list(uids)).download(filename, schema)
