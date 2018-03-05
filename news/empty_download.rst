@@ -3,6 +3,7 @@
 **Changed:**
 
 * Print message when attempting to download an empty spreadsheet instead of raising an error.
+
 * Downloaded spreadsheets have columns in the correct order.
 
 **Deprecated:** None
