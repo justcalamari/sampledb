@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 import json
 from sampledb.databasesearcher import DatabaseSearcher
 from sampledb.datapublisher import DataPublisher
@@ -7,7 +6,7 @@ from pymongo import MongoClient
 
 class SampleDatabase(object):
 
-    def __init__(self, hostname=None, db='sampleDB', collection='samples', key, user, port):
+    def __init__(self, hostname=None, db='sampleDB', collection='samples', key=None, user=None, port=8000):
         if key:
             self.server = user + '@' + hostname
             self.db = db
