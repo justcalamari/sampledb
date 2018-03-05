@@ -1,4 +1,5 @@
 import json
+import argparse
 import pandas as pd
 from time import time
 from sampledb.sampledatabase import SampleDatabase
@@ -82,3 +83,28 @@ def download_sample_spreadsheet(filename, host=None, db='sampleDB', collection='
         with open('sample_schema.json') as sch:
             schema = json.load(sch)
         sdb.search(uid=list(uids)).download(filename, schema)
+
+def publish_samples():
+    parser = argparse.ArgumentParser(description='')
+    parser.add_argument('--host', default=None)
+    parser.add_argument('--db', default='sampleDB')
+    parser.add_argument('--collection', default='samples')
+    parser.add_argument('--key', default=None)
+    parser.add_argument('--user', default=None)
+    parser.add_argument('--port', default=8000)
+    args = parser.parse_args()
+    upload_samples(args.host, args.db, args.collection, args.key,
+            args.user, args.port)
+
+def download_samples():
+    parser = argparse.ArgumentParser(description='')
+    parser.add_argument('filename')
+    parser.add_argument('--host', default=None)
+    parser.add_argument('--db', default='sampleDB')
+    parser.add_argument('--collection', default='samples')
+    parser.add_argument('--key', default=None)
+    parser.add_argument('--user', default=None)
+    parser.add_argument('--port', default=8000)
+    args = parser.parse_args()
+    download_sample_spreadsheet(args.filename, args.host, args.db,
+            args.collection, args.key, args.user, args.port)
