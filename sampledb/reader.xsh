@@ -62,14 +62,7 @@ def find_uids(uids, sdb):
     return known, unknown
 
 def upload_samples(host=None, db='sampleDB', collection='samples', key=None, user=None, port=8000):
-    if key:
-        server = user + '@' + host
-        tunnel = str(port) + ':localhost:27017'
-        ssh -i @(key) -fNMS sock -L @(tunnel) @(server)
-        sdb = SampleDatabase('localhost:' + str(port), db, collection)
-    else:
-        sdb = SampleDatabase(host, db, collection)
-    try:
+    with SampleDatabase(host, db, collection, key, user, port) as sdb:
         uids = get_uid_from_qr()
         known, unknown = find_uids(uids, sdb)
         if len(known):
@@ -77,21 +70,9 @@ def upload_samples(host=None, db='sampleDB', collection='samples', key=None, use
         for uid in known:
             print(uid)
         write_sample_spreadsheet(unknown, sdb)
-    except Exception as e:
-        print(e)
-    finally:
-        if key:
-            ssh -S sock -O exit @(server)
 
 def download_sample_spreadsheet(filename, host=None, db='sampleDB', collection='samples', key=None, user=None, port=8000):
-    if key:
-        server = user + '@' + host
-        tunnel = str(port) + ':localhost:27017'
-        ssh -i @(key) -fNMS sock -L @(tunnel) @(server)
-        sdb = SampleDatabase('localhost:' + str(port), db, collection)
-    else:
-        sdb = SampleDatabase(host, db, collection)
-    try:
+    with SampleDatabase(host, db, collection, key, user, port) as sdb:
         uids = get_uid_from_qr()
         _, unknown = find_uids(uids, sdb)
         if len(unknown):
@@ -101,8 +82,3 @@ def download_sample_spreadsheet(filename, host=None, db='sampleDB', collection='
         with open('sample_schema.json') as sch:
             schema = json.load(sch)
         sdb.search(uid=list(uids)).download(filename, schema)
-    except Exception as e:
-        print(e)
-    finally:
-        if key:
-            ssh -S sock -O exit @(server)
