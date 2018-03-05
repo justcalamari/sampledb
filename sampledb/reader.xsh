@@ -85,26 +85,41 @@ def download_sample_spreadsheet(filename, host=None, db='sampleDB', collection='
         sdb.search(uid=list(uids)).download(filename, schema)
 
 def publish_samples():
-    parser = argparse.ArgumentParser(description='')
-    parser.add_argument('--host', default=None)
-    parser.add_argument('--db', default='sampleDB')
-    parser.add_argument('--collection', default='samples')
-    parser.add_argument('--key', default=None)
-    parser.add_argument('--user', default=None)
-    parser.add_argument('--port', default=8000)
+    parser = argparse.ArgumentParser(description='Publish sample metadata \
+            to a database.')
+    parser.add_argument('-n', '--host', default=None, 
+            help='hostname or IP of the server on which the database lives.')
+    parser.add_argument('-d' ,'--db', default='sampleDB',
+            help='the name of the MongoDB database to publish to.')
+    parser.add_argument('-c', '--collection', default='samples',
+            help='the name of the MongoDB collection to publish to.')
+    parser.add_argument('-k', '--key', default=None,
+            help='path to the key file for authentication into the server.')
+    parser.add_argument('-u', '--user', default=None,
+            help='username on the server.')
+    parser.add_argument('-p', '--port', default=8000,
+            help='port on localhost to use as a tunnel to port 27017 on the remote server.')
     args = parser.parse_args()
     upload_samples(args.host, args.db, args.collection, args.key,
             args.user, args.port)
 
 def download_samples():
-    parser = argparse.ArgumentParser(description='')
-    parser.add_argument('filename')
-    parser.add_argument('--host', default=None)
-    parser.add_argument('--db', default='sampleDB')
-    parser.add_argument('--collection', default='samples')
-    parser.add_argument('--key', default=None)
-    parser.add_argument('--user', default=None)
-    parser.add_argument('--port', default=8000)
+    parser = argparse.ArgumentParser(description='Download sample metadata \
+            from a database to a spreadsheet.')
+    parser.add_argument('filename',
+            help='the name of the spreadsheet where the sample data is to be saved.')
+    parser.add_argument('-n', '--host', default=None, 
+            help='hostname or IP of the server on which the database lives.')
+    parser.add_argument('-d' ,'--db', default='sampleDB',
+            help='the name of the MongoDB database to publish to.')
+    parser.add_argument('-c', '--collection', default='samples',
+            help='the name of the MongoDB collection to publish to.')
+    parser.add_argument('-k', '--key', default=None,
+            help='path to the key file for authentication into the server.')
+    parser.add_argument('-u', '--user', default=None,
+            help='username on the server.')
+    parser.add_argument('-p', '--port', default=8000,
+            help='port on localhost to use as a tunnel to port 27017 on the remote server.')
     args = parser.parse_args()
     download_sample_spreadsheet(args.filename, args.host, args.db,
             args.collection, args.key, args.user, args.port)
