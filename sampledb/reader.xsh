@@ -52,6 +52,11 @@ def write_sample_spreadsheet(uids, sdb):
 
     sheet.set_row(0, 5*max([len(name.split()) for name in df]))
     for i, name in enumerate(df):
+        n = name.split('\n')[0].replace(' ', '_').lower()
+        if schema['properties'][n].get('enum'):
+            sheet.data_validation(1, i, len(uids), i,
+                    {'validate': 'list',
+                     'source': schema['properties'][n]['enum']})
         width = max(len(str(val)) for val in df[name])
         width = max(width, len(name)) + 1
         sheet.set_column(i, i, width)
