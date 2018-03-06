@@ -4,7 +4,7 @@ setup(
     name='sampledb',
     version='0.1.1',
     packages=find_packages(),
-    package_data={'sampledb': ['*.xsh']},
+    package_data={'sampledb': ['*.xsh', 'data/*.json']},
     entry_points={
         'console_scripts': [
             'publish_samples=sampledb.reader:publish_samples',

@@ -17,7 +17,6 @@
         "properties": {"type": "string"},
         "task_and_hazard_analysis": {"type": "string"},
         "project": {"type": "string"}
-},
+   },
    "order": ["uid", "sample_name", "phase_info", "sample-name_of_sample_background", "project", "sample_maker", "quantity", "disposition", "transport", "properties", "task_and_hazard_analysis"]
-    }
-
+}

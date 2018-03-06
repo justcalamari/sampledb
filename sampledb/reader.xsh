@@ -3,6 +3,7 @@ import os
 import argparse
 import yaml
 import pandas as pd
+from pkg_resources import resource_string, resource_filename
 from time import time
 from sampledb.sampledatabase import SampleDatabase
 from collections import OrderedDict
@@ -24,7 +25,7 @@ def write_sample_spreadsheet(uids, sdb):
     if len(uids) == 0:
         return
 
-    sdb.load_schema('sample_schema.json')
+    sdb.load_schema(resource_filename('sampledb', 'data/sample_schema.json'))
     schema = sdb.get_schema()
 
     fields = []
@@ -80,8 +81,8 @@ def download(filename, sdb):
         print('The following sample uids are not in the database:')
         for uid in unknown:
             print(uid)
-    with open('sample_schema.json') as sch:
-        schema = json.load(sch)
+    schema = resource_string('sampledb', 'data/sample_schema.json')
+    schema = json.loads(schema)
     sdb.search(uid=list(uids)).download(filename, schema)
 
 def upload_samples(host=None, db='sampleDB', collection='samples', key=None,
