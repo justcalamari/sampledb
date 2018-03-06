@@ -38,10 +38,19 @@ def write_sample_spreadsheet(uids, sdb):
     cols = [sanitize_df(n) for n in schema['order']]
     df = df[cols]
 
+    required = schema.get('required', [])
+    required = [sanitize_df(n) for n in required]
+    df = df.rename(index=str,
+            columns={n: n + '\n[Required]' for n in required})
+
     filename = str(int(time())) + '.xlsx'
     writer = pd.ExcelWriter(filename, engine='xlsxwriter')
     df.to_excel(writer, index=False)
+    workbook = writer.book
+    wrap = workbook.add_format({'text_wrap': True})
     sheet = writer.sheets['Sheet1']
+
+    sheet.set_row(0, 5*max([len(name.split()) for name in df]))
     for i, name in enumerate(df):
         width = max(len(str(val)) for val in df[name])
         width = max(width, len(name)) + 1
