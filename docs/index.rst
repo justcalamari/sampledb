@@ -15,7 +15,7 @@ Quickstart
 ==========
 
 To start using sampledb with a remote server, create a configuration file 
-in ~/.config/sampledb/config.yml. The config.yml should have the following
+in ``~/.config/sampledb/config.yml``. The config.yml should have the following
 format:
 
 .. code-block:: yaml
