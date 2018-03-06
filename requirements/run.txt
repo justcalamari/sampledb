@@ -5,4 +5,4 @@ pymongo
 pandas
 jsonschema
 xonsh
-yaml
+pyyaml
