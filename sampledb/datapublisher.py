@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 import re
 import pandas as pd
 from datetime import datetime
