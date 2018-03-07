@@ -53,6 +53,8 @@ def write_sample_spreadsheet(uids, sdb):
     writer = pd.ExcelWriter(filename, engine='xlsxwriter')
     df.to_excel(writer, index=False)
     workbook = writer.book
+    sheet = writer.sheets['Sheet1']
+
     req_form = workbook.add_format({
         'bold': True,
         'text_wrap': True,
@@ -67,7 +69,6 @@ def write_sample_spreadsheet(uids, sdb):
         'valign': 'vcenter',
         'border': 1,
         'bg_color': 'green'})
-    sheet = writer.sheets['Sheet1']
 
     sheet.set_row(0, 13*max(len(name.split('\n')) for name in df))
     for i, name in enumerate(df):
