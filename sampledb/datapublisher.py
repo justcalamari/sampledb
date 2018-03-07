@@ -43,7 +43,7 @@ class DataPublisher(object):
                 continue
             for oldkey, newkey in keys.items():
                 if row[1][oldkey] == row[1][oldkey]:
-                    d[newkey] = row[1][oldkey]
+                    d[newkey] = str(row[1][oldkey])
             if 'date' not in d:
                 d['date'] = datetime.now()
             samples.append(d)

@@ -41,13 +41,51 @@ def write_sample_spreadsheet(uids, sdb):
     cols = [sanitize_df(n) for n in schema['order']]
     df = df[cols]
 
+    df = df.rename(index=str,
+            columns={sanitize_df(n): sanitize_df(n) + '\n(' + 
+                schema['properties'][n]['description'] + ')'
+                for n in schema['order'] 
+                if schema['properties'][n].get('description')})
+
+    required = schema.get('required', [])
+    required = [sanitize_df(n) for n in required]
+    df = df.rename(index=str,
+            columns={n: n + '\n[Required]' for n in required})
+
     filename = str(int(time())) + '.xlsx'
     writer = pd.ExcelWriter(filename, engine='xlsxwriter')
     df.to_excel(writer, index=False)
+    workbook = writer.book
     sheet = writer.sheets['Sheet1']
+
+    req_form = workbook.add_format({
+        'bold': True,
+        'text_wrap': True,
+        'align': 'center',
+        'valign': 'vcenter',
+        'border': 1,
+        'bg_color': 'red'})
+    nonreq_form = workbook.add_format({
+        'bold': True,
+        'text_wrap': True,
+        'align': 'center',
+        'valign': 'vcenter',
+        'border': 1,
+        'bg_color': 'green'})
+
+    sheet.set_row(0, 13*max(len(name.split('\n')) for name in df))
     for i, name in enumerate(df):
+        if '[Required]' in name:
+            sheet.write(0, i, name, req_form)
+        else:
+            sheet.write(0, i, name, nonreq_form)
+        n = name.split('\n')[0].replace(' ', '_').lower()
+        if schema['properties'][n].get('enum'):
+            sheet.data_validation(1, i, len(uids), i,
+                    {'validate': 'list',
+                     'source': schema['properties'][n]['enum']})
         width = max(len(str(val)) for val in df[name])
-        width = max(width, len(name)) + 1
+        width = max(width, max(len(n) for n in name.split('\n'))) + 1
         sheet.set_column(i, i, width)
     writer.save()
 
