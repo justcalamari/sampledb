@@ -56,7 +56,7 @@ def write_sample_spreadsheet(uids, sdb):
     wrap = workbook.add_format({'text_wrap': True})
     sheet = writer.sheets['Sheet1']
 
-    sheet.set_row(0, 13*max([len(name.split('\n')) for name in df]))
+    sheet.set_row(0, 13*max(len(name.split('\n')) for name in df))
     for i, name in enumerate(df):
         n = name.split('\n')[0].replace(' ', '_').lower()
         if schema['properties'][n].get('enum'):
@@ -64,7 +64,7 @@ def write_sample_spreadsheet(uids, sdb):
                     {'validate': 'list',
                      'source': schema['properties'][n]['enum']})
         width = max(len(str(val)) for val in df[name])
-        width = max(width, len(name)) + 1
+        width = max(width, max(len(n) for n in name.split('\n'))) + 1
         sheet.set_column(i, i, width)
     writer.save()
 
