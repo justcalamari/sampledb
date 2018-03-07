@@ -24,7 +24,7 @@ class SampleDatabase(object):
         if not self.key:
             return self
         tunnel = str(self.port) + ':localhost:27017'
-        if not ![ssh -o "ExitOnForwardFailure yes" -i @(self.key) -fNMS sock -L @(tunnel) @(self.server)]:
+        if not ![ssh -o "ExitOnForwardFailure yes" -E /dev/null -i @(self.key) -fNMS sock -L @(tunnel) @(self.server)]:
             raise ConnectionError
         c = MongoClient('localhost:' + str(self.port))
         collection = c[self.db][self.collection]
