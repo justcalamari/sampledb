@@ -9,7 +9,6 @@ setup(
         'console_scripts': [
             'publish_samples=sampledb.reader:publish_samples',
             'download_samples=sampledb.reader:download_samples',
-            'clean=sampledb.generate_qr:clean',
         ],
     },
     description='database search and publish',
