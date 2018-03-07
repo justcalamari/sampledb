@@ -39,10 +39,8 @@ class DataPublisher(object):
         samples = []
         for row in sheet.iterrows():
             d = {}
-            '''
-            if re.match('[^\w]', row[1][0]):
+            if re.match('[^\w]', str(row[1][0])):
                 continue
-            '''
             for oldkey, newkey in keys.items():
                 if row[1][oldkey] == row[1][oldkey]:
                     d[newkey] = row[1][oldkey]
