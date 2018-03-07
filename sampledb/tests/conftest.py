@@ -28,3 +28,10 @@ def entries():
             {'date': datetime(2017, 1, 1), 'sample_name': None},
             {'date': datetime(2017, 2, 27), 'sample_name': 'Ni'},
             {'date': datetime(2017, 2, 27), 'sample_name': None}]
+
+
+@pytest.fixture(scope='function')
+def config():
+    return {'hostname': '0.0.0.0',
+            'db': 'test_db',
+            'collection': 'test_coll'}
