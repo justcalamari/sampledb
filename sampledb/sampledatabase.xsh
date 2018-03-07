@@ -6,7 +6,8 @@ from pymongo import MongoClient
 
 class SampleDatabase(object):
 
-    def __init__(self, hostname=None, db='sampleDB', collection='samples', key=None, user=None, port=8000):
+    def __init__(self, hostname=None, db='sampleDB', collection='samples',
+                 key=None, user=None, port=8000):
         if key:
             self.server = user + '@' + hostname
             self.db = db
@@ -42,7 +43,6 @@ class SampleDatabase(object):
         key = config.get('key', None)
         user = config.get('user', None)
         port = config.get('port', 8000)
-        print(host, db, coll, key, user, port)
         return cls(host, db, coll, key, user, port)
 
     def load_schema(self, schema_file):
