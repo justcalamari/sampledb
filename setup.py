@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='sampledb',
-    version='0.1.1',
+    version='0.1.5',
     packages=find_packages(),
     package_data={'sampledb': ['*.xsh', 'data/*.json']},
     scripts=['scripts/publish_samples', 'scripts/download_samples'],

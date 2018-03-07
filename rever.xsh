@@ -1,7 +1,6 @@
 $PROJECT = 'sampledb'
 $ACTIVITIES = ['version_bump', 'changelog', 'tag', 'push_tag', 
-        #'conda_forge',
-        'ghrelease']
+        'conda_forge', 'ghrelease']
 
 $VERSION_BUMP_PATTERNS = [
     ('sampledb/__init__.py', '__version__\s*=.*', "__version__ = '$VERSION'"),
