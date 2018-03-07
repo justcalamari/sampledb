@@ -53,11 +53,28 @@ def write_sample_spreadsheet(uids, sdb):
     writer = pd.ExcelWriter(filename, engine='xlsxwriter')
     df.to_excel(writer, index=False)
     workbook = writer.book
-    wrap = workbook.add_format({'text_wrap': True})
+    req_form = workbook.add_format({
+        'bold': True,
+        'text_wrap': True,
+        'align': 'center',
+        'valign': 'vcenter',
+        'border': 1,
+        'bg_color': 'red'})
+    nonreq_form = workbook.add_format({
+        'bold': True,
+        'text_wrap': True,
+        'align': 'center',
+        'valign': 'vcenter',
+        'border': 1,
+        'bg_color': 'green'})
     sheet = writer.sheets['Sheet1']
 
     sheet.set_row(0, 13*max(len(name.split('\n')) for name in df))
     for i, name in enumerate(df):
+        if '[Required]' in name:
+            sheet.write(0, i, name, req_form)
+        else:
+            sheet.write(0, i, name, nonreq_form)
         n = name.split('\n')[0].replace(' ', '_').lower()
         if schema['properties'][n].get('enum'):
             sheet.data_validation(1, i, len(uids), i,
