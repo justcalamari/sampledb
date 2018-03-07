@@ -12,7 +12,7 @@
             "default" : "air"},
         "sample_maker": {"type" : "string"},
         "quantity": {"type" : "string",
-            "description": "Weight or volume. Specify units (e.g. mg, mL)."},
+            "description": "Weight or volume. Specify units, e.g. mg, mL."},
         "disposition": {"type": "string",
             "default" : "Returned to Home Institution",
             "enum" : ["Returned to Home Institution",

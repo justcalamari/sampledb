@@ -38,6 +38,12 @@ def write_sample_spreadsheet(uids, sdb):
     cols = [sanitize_df(n) for n in schema['order']]
     df = df[cols]
 
+    df = df.rename(index=str,
+            columns={sanitize_df(n): sanitize_df(n) + '\n(' + 
+                schema['properties'][n]['description'] + ')'
+                for n in schema['order'] 
+                if schema['properties'][n].get('description')})
+
     required = schema.get('required', [])
     required = [sanitize_df(n) for n in required]
     df = df.rename(index=str,
@@ -50,7 +56,7 @@ def write_sample_spreadsheet(uids, sdb):
     wrap = workbook.add_format({'text_wrap': True})
     sheet = writer.sheets['Sheet1']
 
-    sheet.set_row(0, 5*max([len(name.split()) for name in df]))
+    sheet.set_row(0, 13*max([len(name.split('\n')) for name in df]))
     for i, name in enumerate(df):
         n = name.split('\n')[0].replace(' ', '_').lower()
         if schema['properties'][n].get('enum'):
