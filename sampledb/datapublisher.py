@@ -39,8 +39,10 @@ class DataPublisher(object):
         samples = []
         for row in sheet.iterrows():
             d = {}
-            if re.match('[^\w\d]', row[1][0]):
+            '''
+            if re.match('[^\w]', row[1][0]):
                 continue
+            '''
             for oldkey, newkey in keys.items():
                 if row[1][oldkey] == row[1][oldkey]:
                     d[newkey] = row[1][oldkey]
@@ -77,7 +79,13 @@ class DataPublisher(object):
                 doc['saf'] = saf
             try:
                 validate(doc, self.schema)
-                self.collection.save(doc)
+                self.collection.replace_one(
+                        {'$and': [
+                            {'uid': doc.get('uid')},
+                            {'uid': {'$exists': True}}
+                         ]},
+                        doc,
+                        upsert=True)
             except ValidationError as e:
                 print('Failed validating uid={}'.format(doc.get('uid')))
                 raise e
