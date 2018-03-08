@@ -26,6 +26,7 @@ template = env.get_template('qr_template.tex')
 
 base = 'test'
 
+pages = 5
 cols = 3
 rows = 10
 lmar = 0.1875
@@ -60,7 +61,7 @@ options['rows'] = rows
 options['gpath'] = base
 
 codes = []
-for i in range(rows):
+for i in range(pages * cols * rows):
     uid = str(uuid.uuid4())
     code = qrcode.make(uid)
     filename = uid + '.png'
