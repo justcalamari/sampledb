@@ -119,7 +119,7 @@ def download(filename, sdb):
         print('The following sample uids are not in the database:')
         for uid in unknown:
             print(uid)
-    schema = resource_string('sampledb', 'data/sample_schema.json')
+    schema = resource_string('sampledb', 'data/sample_schema.json').decode("utf-8") 
     schema = json.loads(schema)
     sdb.search(uid=list(uids)).download(filename, schema)
 
