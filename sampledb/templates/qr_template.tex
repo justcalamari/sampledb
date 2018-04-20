@@ -22,9 +22,9 @@
 \numberoflabels=1
 \begin{document}
 \begin{labels}
-\BLOCK{for qr, uid in qrs}
-    \hfill\includegraphics[width=\VAR{width}, height=\VAR{height}, keepaspectratio]{\VAR{qr}}\hfill\includegraphics[width=\VAR{width}, height=\VAR{height}, keepaspectratio]{\VAR{qr}}\hfill\includegraphics[width=\VAR{width}, height=\VAR{height}, keepaspectratio]{\VAR{qr}}\hfill\\
-    \captionof*{figure}{\hfill \VAR{uid} \hfill \VAR{uid} \hfill \VAR{uid} \hfill}
+\BLOCK{for qr1, qr2, qr3 in qrs}
+    \hfill\includegraphics[width=\VAR{width}, height=\VAR{height}, keepaspectratio]{\VAR{qr1[0]}}\hfill\includegraphics[width=\VAR{width}, height=\VAR{height}, keepaspectratio]{\VAR{qr2[0]}}\hfill\includegraphics[width=\VAR{width}, height=\VAR{height}, keepaspectratio]{\VAR{qr3[0]}}\hfill\\
+    \captionof*{figure}{\hfill \VAR{qr1[1]} \hfill \VAR{qr2[1]} \hfill \VAR{qr3[1]} \hfill}
 
 \BLOCK{endfor}
 \end{labels}

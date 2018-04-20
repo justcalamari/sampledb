@@ -3,6 +3,7 @@ import os
 import qrcode
 import uuid
 import subprocess
+import numpy as np
 from glob import glob
 
 LATEX_OPTS = ['-halt-on-error', '-file-line-error']
@@ -26,6 +27,7 @@ template = env.get_template('qr_template.tex')
 
 base = 'test'
 
+pages = 1
 cols = 3
 rows = 10
 lmar = 0.1875
@@ -60,15 +62,23 @@ options['rows'] = rows
 options['gpath'] = base
 
 codes = []
-for i in range(rows):
+for i in range(pages * rows * cols):
     uid = str(uuid.uuid4())
     code = qrcode.make(uid)
     filename = uid + '.png'
     with open(os.path.join(base, filename), 'wb') as img:
         code.save(img, 'PNG')
     codes.append((filename, uid[:6]))
-options['qrs'] = codes
+codes = [c for c in zip(codes[0::3], codes[1::3], codes[2::3])]
+qrs = []
+for c1, c2, c3 in zip(codes[0::3], codes[1::3], codes[2::3]):
+    for i in range(3):
+        for c in [c1, c2, c3]:
+            qrs.append(c)
 
+options['qrs'] = qrs
+#options['qrs'] = [c for c in zip(codes[0::3], codes[1::3], codes[2::3])]
+#options['qrs'] = list(itertools.chain.from_iterable(itertools.repeat(x, 3) for x in options['qrs']))
 result = template.render(**options)
 
 os.makedirs(base, exist_ok=True)
