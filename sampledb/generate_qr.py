@@ -3,7 +3,6 @@ import os
 import qrcode
 import uuid
 import subprocess
-import numpy as np
 from glob import glob
 
 LATEX_OPTS = ['-halt-on-error', '-file-line-error']
