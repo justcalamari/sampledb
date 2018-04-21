@@ -76,8 +76,6 @@ for c1, c2, c3 in zip(codes[0::3], codes[1::3], codes[2::3]):
             qrs.append(c)
 
 options['qrs'] = qrs
-#options['qrs'] = [c for c in zip(codes[0::3], codes[1::3], codes[2::3])]
-#options['qrs'] = list(itertools.chain.from_iterable(itertools.repeat(x, 3) for x in options['qrs']))
 result = template.render(**options)
 
 os.makedirs(base, exist_ok=True)
